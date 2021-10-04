@@ -1210,9 +1210,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skeleton: {fileID: 1961913983}
-  poses: []
   debugMode: 1
   poseLibrary: {fileID: 11400000, guid: 04890c9cf5467e7499c8f2da3e6c43f4, type: 2}
+  threshold: 0.05
 --- !u!4 &353521748
 Transform:
   m_ObjectHideFlags: 0

@@ -14,17 +14,32 @@ public struct Pose
 public class PoseRecognizer : MonoBehaviour
 {
     public OVRSkeleton skeleton;
-    public List<Pose> poses;
     public bool debugMode = true;
     public PoseData poseLibrary;
+    public float threshold = 0.05f;
     private List<OVRBone> fingerBones;
+    private Pose previousPose;
 
+    private void Start()
+    {
+        previousPose = new Pose();
+    }
 
     private void Update()
     {
         if (debugMode && Input.GetKeyDown(KeyCode.Space))
         {
             Save();
+        }
+
+        Pose currentPose = Recognize();
+        bool hasRecognized = !currentPose.Equals(new Pose());
+        //check if new Pose
+        if (hasRecognized && !currentPose.Equals(previousPose))
+        {
+            Debug.Log("Pose detected: " + currentPose.name);
+            currentPose.onRecognized?.Invoke();
+            previousPose = currentPose;
         }
     }
 
@@ -40,11 +55,54 @@ public class PoseRecognizer : MonoBehaviour
         List<Vector3> data = new List<Vector3>();
         foreach (OVRBone bone in fingerBones)
         {
-            Debug.Log("add bone");
+            //position relative to hand
             data.Add(skeleton.transform.InverseTransformPoint(bone.Transform.position));
         }
         p.fingerData = data;
-        poses.Add(p);
         poseLibrary.Add(p);
+    }
+
+    Pose Recognize()
+    {
+        if (skeleton.Bones.Count==0)
+        {
+            Debug.Log("[PoseRecognizer] Fingers not found.");
+            return new Pose();
+        }
+        if (fingerBones == null)
+        {
+            fingerBones = new List<OVRBone>(skeleton.Bones);
+        }
+
+        Pose currentPose = new Pose();
+        float currentMin = Mathf.Infinity;
+
+        //scan all poses for something that matches the current pose
+        foreach (Pose pose in poseLibrary.poses)
+        {
+            float sumDistance = 0;
+            bool isDiscarded = false;
+
+            //calculate closest match for current pose
+            for (int i = 0; i < fingerBones.Count; i++)
+            {
+                Vector3 currentData = skeleton.transform.InverseTransformPoint(fingerBones[i].Transform.position);
+                float distance = Vector3.Distance(currentData, pose.fingerData[i]);
+                if (distance > threshold)
+                {
+                    isDiscarded = true;
+                    break;
+                }
+                sumDistance += distance;
+            }
+
+            //set as new recognized pose
+            if (!isDiscarded && sumDistance < currentMin)
+            {
+                currentMin = sumDistance;
+                currentPose = pose;
+            }
+        }
+        return currentPose;
     }
 }
