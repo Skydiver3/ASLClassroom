@@ -58,3 +58,7 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
+ASLClassroom/Library
+ASLClassroom/Logs
+ASLClassroom/Temp
+ASLClassroom/UserSettings
