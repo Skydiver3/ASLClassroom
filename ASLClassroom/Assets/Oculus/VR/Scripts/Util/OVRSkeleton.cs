@@ -374,6 +374,14 @@ public class OVRSkeleton : MonoBehaviour
 				{
 					if (_skeletonType == SkeletonType.HandLeft || _skeletonType == SkeletonType.HandRight)
 					{
+						//---------------------------------
+						Quaternion q = data.BoneRotations[i].FromFlippedXQuatf();
+						if(float.IsNaN(q.x) || float.IsNaN(q.y) || float.IsNaN(q.z) || float.IsNaN(q.w))
+                        {
+							Debug.LogWarning("Local rotation assign attempt failed. Rotation invalid.");
+							continue;
+                        }
+						//----------------------------------
 						_bones[i].Transform.localRotation = data.BoneRotations[i].FromFlippedXQuatf();
 
 						if (_bones[i].Id == BoneId.Hand_WristRoot)

@@ -20,6 +20,9 @@ public class PoseRecognizer : MonoBehaviour
     private List<OVRBone> fingerBones;
     private Pose previousPose;
 
+    public delegate void StringDelegate(string s);
+    public StringDelegate PoseRecognizedEvent;
+
     private void Start()
     {
         previousPose = new Pose();
@@ -37,8 +40,8 @@ public class PoseRecognizer : MonoBehaviour
         //check if new Pose
         if (hasRecognized && !currentPose.Equals(previousPose))
         {
-            Debug.Log("Pose detected: " + currentPose.name);
             currentPose.onRecognized?.Invoke();
+            PoseRecognizedEvent?.Invoke(currentPose.name);
             previousPose = currentPose;
         }
     }
