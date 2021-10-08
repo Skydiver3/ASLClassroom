@@ -15,6 +15,7 @@ public class TutorialManager : MonoBehaviour
 {
     [SerializeField] private Animator animator;
     [SerializeField] private TextMeshProUGUI bubbleText;
+    [SerializeField] private TextMeshProUGUI logText;
     [SerializeField] private List<Task> backlog;
     [SerializeField] private PoseRecognizer poseRecognizer;
     private Task currentTask;
@@ -73,7 +74,7 @@ public class TutorialManager : MonoBehaviour
     private void FinishTutorial()
     {
         bubbleText.text = finishMessage;
-        ExitTutorial();
+        listening = false;
     }
     private void EnterTutorial()
     {
@@ -83,12 +84,16 @@ public class TutorialManager : MonoBehaviour
     }
     private void ExitTutorial()
     {
-        if(tutorialRunning)
+        if (tutorialRunning)
+        {
             poseRecognizer.PoseRecognizedEvent -= OnGestureRecognized;
+            listening = false;
+        }
     }
 
     public void OnGestureRecognized(string gestureName)
     {
+        logText.text = gestureName;
         if (listening&&gestureName == currentTask.gesture)
         {
             StartCoroutine(AdvanceTutorial());
