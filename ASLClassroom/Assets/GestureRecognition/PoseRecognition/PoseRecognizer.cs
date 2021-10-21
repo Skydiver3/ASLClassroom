@@ -13,7 +13,11 @@ public struct Pose
 
 public class PoseRecognizer : MonoBehaviour
 {
-    public OVRSkeleton skeleton;
+    private static PoseRecognizer _instance;
+    public static PoseRecognizer Instance { get { return _instance; } }
+
+    //public OVRSkeleton skeleton;
+    public OVRCustomSkeleton skeleton;
     public bool debugMode = true;
     public PoseData poseLibrary;
     public float threshold = 0.05f;
@@ -23,6 +27,17 @@ public class PoseRecognizer : MonoBehaviour
     public delegate void StringDelegate(string s);
     public StringDelegate PoseRecognizedEvent;
 
+    private void Awake()
+    {
+        if (_instance != null)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            _instance = this;
+        }
+    }
     private void Start()
     {
         previousPose = new Pose();
@@ -46,8 +61,9 @@ public class PoseRecognizer : MonoBehaviour
         }
     }
 
-    void Save()
+    public void Save()
     {
+        if (skeleton == null || skeleton.Bones == null||skeleton.Bones.Count==0) return;
         if (fingerBones == null)
         {
             fingerBones = new List<OVRBone>(skeleton.Bones);
@@ -65,7 +81,7 @@ public class PoseRecognizer : MonoBehaviour
         poseLibrary.Add(p);
     }
 
-    Pose Recognize()
+    public Pose Recognize()
     {
         if (skeleton.Bones.Count==0)
         {
