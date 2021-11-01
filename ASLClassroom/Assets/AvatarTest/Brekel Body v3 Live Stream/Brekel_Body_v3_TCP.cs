@@ -5,6 +5,10 @@ using System.Text;
 using System.Collections;
 using System.Collections.Generic;
 
+// =======================================
+// Fetch Sensor position and rotation from
+// Brekel to calibrate with unity coords.
+// =======================================
 
 enum Brekel_joint_name_v3
 {
@@ -60,6 +64,8 @@ public class Brekel_skeleton_v3
 
 public class Brekel_Body_v3_TCP : MonoBehaviour
 {
+	public Transform hmd;
+
 	// settings
 	[Header("Network Settings")]
 	[Tooltip("Host name/IP that Brekel Body v3 is running on (localhost if it's running on the same machine)")]
@@ -89,7 +95,14 @@ public class Brekel_Body_v3_TCP : MonoBehaviour
 	private	bool						readingFromNetwork		= false;
 	private	Vector3						pos, rot;
 	private	Quaternion[]				offsets					= new Quaternion[(int)Brekel_joint_name_v3.numJoints];
-	
+
+	private Vector3 offsetPos = Vector3.zero;
+	private Vector3 offsetRot = Vector3.zero;
+	private bool offsetPosStored = false;
+	private bool offsetRotStored = false;
+	private Vector3 headOffset = Vector3.zero;
+
+
 
 	//=============================
 	// this is run once at startup
@@ -99,6 +112,22 @@ public class Brekel_Body_v3_TCP : MonoBehaviour
 		StoreOffsets();	// store offsets of transforms
 		Connect();		// connect to Brekel TCP network socket
 	}
+
+
+	/*IEnumerator Start()
+	{
+		yield return null;
+
+		StoreOffsets();	// store offsets of transforms
+		Connect();		// connect to Brekel TCP network socket
+
+		headOffset.x = head.position.x - hmd.position.x;
+		headOffset.z = head.position.z - hmd.position.z;
+
+		hmd.position += headOffset;
+
+		Debug.Log("HMD Offset " + headOffset);
+	}*/
 
 
 	//==========================
@@ -124,6 +153,7 @@ public class Brekel_Body_v3_TCP : MonoBehaviour
 		{
 			// apply data to transforms (must be done in Update, not in FetchFrame as that runs in it's own separate background thread)
 			// a more sophisticated way or 'retargeting' would be to use inverse kinematics, this is beyond the scope of this example
+
 			ApplyData(hips,			Brekel_joint_name_v3.waist,			true, true);
 			ApplyData(spine,		Brekel_joint_name_v3.spine,			applyPositionsToAll, true);
 			ApplyData(chest,		Brekel_joint_name_v3.chest,			applyPositionsToAll, true);
@@ -154,8 +184,48 @@ public class Brekel_Body_v3_TCP : MonoBehaviour
 	{
 		if(!transform)
 			return;
-		if(pos)	transform.localPosition	= bodies[body_ID].joints[(int)joint].position;
-		if(rot)	transform.localRotation	= offsets[(int)joint] * bodies[body_ID].joints[(int)joint].rotation;
+		if(pos)
+		{
+			//transform.localPosition	= bodies[body_ID].joints[(int)joint].position;
+
+			if(!offsetPosStored)
+			{
+				offsetPos.x = bodies[body_ID].joints[(int)joint].position.x;
+				offsetPos.z = bodies[body_ID].joints[(int)joint].position.z;
+				offsetPosStored = true;
+				Debug.Log("Offset POS: " + offsetPos);
+			}
+
+			transform.localPosition	= bodies[body_ID].joints[(int)joint].position - offsetPos;
+		}
+
+		if(rot)
+		{
+			transform.localRotation	= offsets[(int)joint] * bodies[body_ID].joints[(int)joint].rotation;
+
+			/*if(!offsetRotStored)
+			{
+				transform.localRotation	= offsets[(int)joint] * bodies[body_ID].joints[(int)joint].rotation;
+				Vector3 tempRotation = transform.localRotation.eulerAngles;
+
+				offsetRot.y = tempRotation.y;
+
+				offsetRotStored = true;
+				Debug.Log("Offset ROT: " + offsetRot);
+			}
+
+			if(joint == Brekel_joint_name_v3.waist)
+			{
+				Quaternion tempQuaternion = Quaternion.Inverse(transform.localRotation);
+
+				Debug.Log("Quaternion.Forward: " + tempQuaternion);
+				transform.localRotation = tempQuaternion;
+
+			} else
+			{
+				transform.localRotation	= offsets[(int)joint] * bodies[body_ID].joints[(int)joint].rotation;
+			}*/
+		}
 
 	}
 
@@ -185,7 +255,7 @@ public class Brekel_Body_v3_TCP : MonoBehaviour
 		if(foreArm_R)	offsets[(int)Brekel_joint_name_v3.foreArm_R]	= Quaternion.Inverse(foreArm_R.localRotation);
 		if(hand_R)		offsets[(int)Brekel_joint_name_v3.hand_R]		= Quaternion.Inverse(hand_R.localRotation);
 	}
-	
+
 
 	//======================================
 	// Connect to Brekel TCP network socket
@@ -258,6 +328,8 @@ public class Brekel_Body_v3_TCP : MonoBehaviour
 				int		index		= 6 + 2;	// 6 for the packet_start, +2 for the encoded packet size which we don't need here since we can use BytesRead
 				int		num_joints	= BitConverter.ToInt32(readBuffer, index);	index += 4;
 				int		num_bodies	= BitConverter.ToInt32(readBuffer, index);	index += 4;
+
+
 				if(num_bodies > max_num_bodies)
 					num_bodies = max_num_bodies;
 
@@ -286,6 +358,7 @@ public class Brekel_Body_v3_TCP : MonoBehaviour
 					}
 				}
 			}
+
 
 			// done reading from network
 			isConnected			= true;
