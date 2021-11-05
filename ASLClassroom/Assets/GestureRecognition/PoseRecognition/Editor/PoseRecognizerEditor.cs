@@ -12,9 +12,12 @@ public class PoseRecognizerEditor : Editor
         
         PoseRecognizer myTarget = (PoseRecognizer)target;
 
-        if(GUILayout.Button("Add Pose"))
+        if(GUILayout.Button("Add Pose Left"))
         {
-            myTarget.Save();
+            myTarget.SaveLeft();
+        }if(GUILayout.Button("Add Pose Right"))
+        {
+            myTarget.SaveRight();
         }
 
     }

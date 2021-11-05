@@ -21,17 +21,17 @@ public class PoseKey : Key
         recognizer = PoseRecognizer.Instance;
         recognizer.PoseRecognizedEvent += OnPoseRecognized;
 
-        originalPose = recognizer.Recognize().name;
+        originalPose = recognizer.Recognize(targetHand).name;
         currentPose = originalPose;
     }
     public override void ExitKey()
     {
         recognizer.PoseRecognizedEvent -= OnPoseRecognized;
     }
-    private void OnPoseRecognized(string s)
+
+    private void OnPoseRecognized(string s, SkeletonType handType)
     {
-        currentPose = s;
-        
+        if(handType == targetHand) currentPose = s;        
     }
     public override KeyStates GetKeyMet()
     {

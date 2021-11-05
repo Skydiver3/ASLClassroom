@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEditor.Animations;
 using UnityEngine;
 using TMPro;
+using static OVRPlugin;
 
 [System.Serializable]
 public struct Task
@@ -91,9 +92,8 @@ public class TutorialManager : MonoBehaviour
         }
     }
 
-    public void OnGestureRecognized(string gestureName)
+    public void OnGestureRecognized(string gestureName, SkeletonType handType)
     {
-        logText.text = gestureName;
         if (listening&&gestureName == currentTask.gesture)
         {
             StartCoroutine(AdvanceTutorial());

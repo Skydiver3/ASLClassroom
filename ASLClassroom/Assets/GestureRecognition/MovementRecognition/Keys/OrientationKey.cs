@@ -35,7 +35,6 @@ public class OrientationKey : Key
     {
         hand = null;
     }
-
     public override KeyStates GetKeyMet()
     {
         if (hand==null)

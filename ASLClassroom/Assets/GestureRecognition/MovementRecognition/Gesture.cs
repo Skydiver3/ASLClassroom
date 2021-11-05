@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.Collections;
 using UnityEngine;
 
@@ -20,10 +21,10 @@ public class Gesture : ScriptableObject
 
     //manage gesture progress
     //messages gesture recognizer about progress of currently observed gesture
-    public GestureStates UpdateProgress()
+    public GestureStates UpdateProgress(out string log)
     {
         GestureStates message = GestureStates.Pass;
-        KeyStates complexState = complexPoses[_progress].GetKeysMet();
+        KeyStates complexState = complexPoses[_progress].GetKeysMet(out log);
         switch (complexState)
         {
             case KeyStates.Hit:
@@ -82,13 +83,13 @@ public class ComplexPose
     //analyze key state:
     //if any simple key fails, pose automatically fails
     //if any simple key is not yet reached, pose does not succeed yet
-    public KeyStates GetKeysMet()
+    public KeyStates GetKeysMet(out string log)
     {
         KeyStates state = KeyStates.Hit;
-
+        log = "";
         foreach (Key key in keys)
         {
-            Debug.Log(key.name + " " + key.GetKeyMet().ToString());
+            log+=key.name + " " + key.GetKeyMet().ToString()+"\n";
             KeyStates simpleState = key.GetKeyMet();
 
             if (simpleState == KeyStates.Fail) return simpleState;

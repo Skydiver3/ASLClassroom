@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
+using static OVRPlugin;
 
 [System.Serializable]
 public struct Pose
@@ -17,15 +19,22 @@ public class PoseRecognizer : MonoBehaviour
     public static PoseRecognizer Instance { get { return _instance; } }
 
     //public OVRSkeleton skeleton;
-    public OVRCustomSkeleton skeleton;
+    public OVRCustomSkeleton skeletonL;
+    public OVRCustomSkeleton skeletonR;
     public bool debugMode = true;
-    public PoseData poseLibrary;
+    public PoseData poseLibraryL;
+    public PoseData poseLibraryR;
     public float threshold = 0.05f;
-    private List<OVRBone> fingerBones;
-    private Pose previousPose;
+    private List<OVRBone> fingerBonesL;
+    private List<OVRBone> fingerBonesR;
+    private Pose previousPoseL;
+    private Pose previousPoseR;
 
-    public delegate void StringDelegate(string s);
-    public StringDelegate PoseRecognizedEvent;
+    public TextMeshProUGUI poseTextL;
+    public TextMeshProUGUI poseTextR;
+
+    public delegate void StringHandDelegate(string s, SkeletonType handType);
+    public StringHandDelegate PoseRecognizedEvent;
 
     private void Awake()
     {
@@ -40,28 +49,44 @@ public class PoseRecognizer : MonoBehaviour
     }
     private void Start()
     {
-        previousPose = new Pose();
+        previousPoseL = new Pose();
+        previousPoseR = new Pose();
     }
 
     private void Update()
     {
         if (debugMode && Input.GetKeyDown(KeyCode.Space))
         {
-            Save();
+            Save(skeletonL, fingerBonesL, poseLibraryL);
+            Save(skeletonR, fingerBonesR, poseLibraryR);
         }
 
-        Pose currentPose = Recognize();
+        //Left hand
+        Pose currentPose = Recognize(skeletonL, fingerBonesL, poseLibraryL);
         bool hasRecognized = !currentPose.Equals(new Pose());
         //check if new Pose
-        if (hasRecognized && !currentPose.Equals(previousPose))
+        poseTextL.text = currentPose.name;
+        if (hasRecognized && !currentPose.Equals(previousPoseL))
         {
             currentPose.onRecognized?.Invoke();
-            PoseRecognizedEvent?.Invoke(currentPose.name);
-            previousPose = currentPose;
+            PoseRecognizedEvent?.Invoke(currentPose.name, SkeletonType.HandLeft);
+            previousPoseL = currentPose;
+        }
+
+        //Right hand
+        currentPose = Recognize(skeletonR, fingerBonesR, poseLibraryR);
+        hasRecognized = !currentPose.Equals(new Pose());
+        //check if new Pose
+        poseTextR.text = currentPose.name;
+        if (hasRecognized && !currentPose.Equals(previousPoseR))
+        {
+            currentPose.onRecognized?.Invoke();
+            PoseRecognizedEvent?.Invoke(currentPose.name, SkeletonType.HandRight);
+            previousPoseR = currentPose;
         }
     }
 
-    public void Save()
+    private void Save(OVRCustomSkeleton skeleton, List<OVRBone> fingerBones, PoseData poseLibrary)
     {
         if (skeleton == null || skeleton.Bones == null||skeleton.Bones.Count==0) return;
         if (fingerBones == null)
@@ -80,8 +105,28 @@ public class PoseRecognizer : MonoBehaviour
         p.fingerData = data;
         poseLibrary.Add(p);
     }
+    public void SaveLeft()
+    {
+        Save(skeletonL, fingerBonesL, poseLibraryL);
+    }
+    public void SaveRight()
+    {
+        Save(skeletonR, fingerBonesR, poseLibraryR);
+    }
 
-    public Pose Recognize()
+    public Pose Recognize(SkeletonType skeletonType)
+    {
+        if (skeletonType == SkeletonType.HandLeft)
+        {
+            return Recognize(skeletonL, fingerBonesL, poseLibraryL);
+        }
+        else
+        {
+            return Recognize(skeletonR, fingerBonesR, poseLibraryR);
+        }
+    }
+
+    private Pose Recognize(OVRCustomSkeleton skeleton, List<OVRBone> fingerBones, PoseData poseLibrary)
     {
         if (skeleton.Bones.Count==0)
         {

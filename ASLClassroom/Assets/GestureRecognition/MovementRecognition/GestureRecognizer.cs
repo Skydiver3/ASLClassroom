@@ -7,10 +7,9 @@ public class GestureRecognizer : MonoBehaviour
 {
     public Gesture templateGesture;
     public Gesture currentGesture;
-    public TextMeshProUGUI progressLog;
+    public TextMeshProUGUI progressLog2;
     private void Start()
     {
-        progressLog.text = "Init Gesture";
         currentGesture = InstantiateGesture(templateGesture);
         currentGesture.InitGesure();
     }
@@ -20,22 +19,25 @@ public class GestureRecognizer : MonoBehaviour
         if (currentGesture == null) return;
 
         Gesture.GestureStates gestureState;
-        gestureState = currentGesture.UpdateProgress();
+
+        string log;
+        gestureState = currentGesture.UpdateProgress(out log);
 
         if (gestureState == Gesture.GestureStates.Succeeded)
         {
-            progressLog.text = "Gesture succeeded";
+            log += "\n\n Gesture succeeded";
             currentGesture.InitGesure();
         }
         else if (gestureState == Gesture.GestureStates.Failed)
         {
-            progressLog.text = "Gesture failed";
+            log += "\n\n Gesture failed";
             currentGesture.InitGesure();
         }
         else if (gestureState == Gesture.GestureStates.Advance)
         {
-            progressLog.text = "Gesture advanced: "+currentGesture.Progress;
+            log += "\n\n Gesture advanced: " + currentGesture.Progress;
         }
+        progressLog2.text = log;
     }
 
     private Gesture InstantiateGesture(Gesture templateGesture)
