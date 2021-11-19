@@ -10,6 +10,7 @@ public enum KeyStates
 }
 public abstract class Key : ScriptableObject
 {
+    public string description;
     public abstract void InitKey();
     public abstract void ExitKey();
     public abstract KeyStates GetKeyMet();

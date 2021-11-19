@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1896a74e53e32648954ca6f42e32dfd, type: 3}
   m_Name: PosePinch3L
   m_EditorClassIdentifier: 
+  description: Pinch the first three fingers of your left hand
   targetHand: 0
   targetPose: Pinch3

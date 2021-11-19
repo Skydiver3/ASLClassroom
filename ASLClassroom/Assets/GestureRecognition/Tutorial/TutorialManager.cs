@@ -5,21 +5,22 @@ using UnityEngine;
 using TMPro;
 using static OVRPlugin;
 
-[System.Serializable]
-public struct Task
-{
-    public string gesture;
-    public string instructions;
-}
 
 public class TutorialManager : MonoBehaviour
 {
+    [System.Serializable]
+    public struct Task_
+    {
+        public string gesture;
+        public string instructions;
+    }
+
     [SerializeField] private Animator animator;
     [SerializeField] private TextMeshProUGUI bubbleText;
     [SerializeField] private TextMeshProUGUI logText;
-    [SerializeField] private List<Task> backlog;
+    [SerializeField] private List<Task_> backlog;
     [SerializeField] private PoseRecognizer poseRecognizer;
-    private Task currentTask;
+    private Task_ currentTask;
 
     [SerializeField] private float startDelay = 7;
     [SerializeField] private float afterPoseDelay = 1;
@@ -40,7 +41,7 @@ public class TutorialManager : MonoBehaviour
         ExitTutorial();
     }
 
-    private void StartTask(Task task)
+    private void StartTask(Task_ task)
     {
         currentTask = task;
         bubbleText.text = task.instructions;

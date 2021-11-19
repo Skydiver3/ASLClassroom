@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e27de8774b3e5cd48b380ff217d1bdfb, type: 3}
   m_Name: ThumbIndexRClose
   m_EditorClassIdentifier: 
-  targetHand: 10
-  relativeObject: 12
+  description: Pinch the fingers of your right hand
+  targetHand: 11
+  relativeObject: 13
   targetDistance: 2

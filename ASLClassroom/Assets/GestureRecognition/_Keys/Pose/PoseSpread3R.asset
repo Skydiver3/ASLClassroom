@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1896a74e53e32648954ca6f42e32dfd, type: 3}
   m_Name: PoseSpread3R
   m_EditorClassIdentifier: 
+  description: Spread the first three fingers of your right hand
   targetHand: 1
   targetPose: Spread3

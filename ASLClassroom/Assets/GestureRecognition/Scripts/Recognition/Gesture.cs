@@ -18,13 +18,17 @@ public class Gesture : ScriptableObject
     {
         complexPoses[0].InitCPose();
     }
+    public void CloseGesture()
+    {
+        complexPoses[_progress].ExitCPose();
+    }
 
     //manage gesture progress
     //messages gesture recognizer about progress of currently observed gesture
-    public GestureStates UpdateProgress(out string log)
+    public GestureStates UpdateProgress(out string[] log, out KeyStates[] logStates)
     {
         GestureStates message = GestureStates.Pass;
-        KeyStates complexState = complexPoses[_progress].GetKeysMet(out log);
+        KeyStates complexState = complexPoses[_progress].GetKeysMet(out log, out logStates);
         switch (complexState)
         {
             case KeyStates.Hit:
@@ -32,7 +36,6 @@ public class Gesture : ScriptableObject
                 if (complexPoses.Count <= _progress + 1)
                 {
                     message = GestureStates.Succeeded;
-                    ResetProgress();
                     break;
                 }
                 AdvanceProgress();
@@ -83,18 +86,29 @@ public class ComplexPose
     //analyze key state:
     //if any simple key fails, pose automatically fails
     //if any simple key is not yet reached, pose does not succeed yet
-    public KeyStates GetKeysMet(out string log)
+    public KeyStates GetKeysMet(out string[] log, out KeyStates[] logStates)
     {
         KeyStates state = KeyStates.Hit;
-        log = "";
-        foreach (Key key in keys)
-        {
-            log+=key.name + " " + key.GetKeyMet().ToString()+"\n";
-            KeyStates simpleState = key.GetKeyMet();
+        bool failed = false;
+        bool passed = false;
 
-            if (simpleState == KeyStates.Fail) return simpleState;
-            else if (simpleState == KeyStates.None) state = KeyStates.None;
+        log = new string[keys.Count];
+        logStates = new KeyStates[keys.Count];
+        for (int i = 0; i < keys.Count; i++)
+        {
+            KeyStates simpleState = keys[i].GetKeyMet();
+
+            log[i] = keys[i].description;
+            logStates[i] = simpleState;
+
+            Debug.Log(log[i] + logStates[i]);
+
+            if (simpleState == KeyStates.Fail) failed = true;
+            else if (simpleState == KeyStates.None) passed = true;
+
         }
+        if (failed) return KeyStates.Fail;
+        if (passed) return KeyStates.None;
         return state;
     }
 }

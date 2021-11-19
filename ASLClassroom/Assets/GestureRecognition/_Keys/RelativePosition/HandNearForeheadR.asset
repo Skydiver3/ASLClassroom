@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e27de8774b3e5cd48b380ff217d1bdfb, type: 3}
   m_Name: HandNearForeheadR
   m_EditorClassIdentifier: 
+  description: Move your right hand to your forehead
   targetHand: 1
   relativeObject: 3
   targetDistance: 1

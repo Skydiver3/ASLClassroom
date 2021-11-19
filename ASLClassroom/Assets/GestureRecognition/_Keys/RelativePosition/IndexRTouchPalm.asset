@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e27de8774b3e5cd48b380ff217d1bdfb, type: 3}
   m_Name: IndexRTouchPalm
   m_EditorClassIdentifier: 
+  description: Touch your left palm with the pinched fingers of your right
   targetHand: 11
-  relativeObject: 12
+  relativeObject: 14
   targetDistance: 2

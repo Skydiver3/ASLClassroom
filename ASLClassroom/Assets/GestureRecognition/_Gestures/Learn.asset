@@ -15,8 +15,8 @@ MonoBehaviour:
   complexPoses:
   - keys:
     - {fileID: 11400000, guid: 72694db972d802148b00f2c7ced1776b, type: 2}
-    - {fileID: 11400000, guid: 42178502f0ef3f144a23800d4637b8ef, type: 2}
+    - {fileID: 11400000, guid: d371000c0abe7fb439758cdca1dff520, type: 2}
     - {fileID: 11400000, guid: 8de0ce0277ed8d2478382b7b5706b2e1, type: 2}
   - keys:
     - {fileID: 11400000, guid: bebb9e8f1f1ddfc48b649fa1ec93eb30, type: 2}
-    - {fileID: 11400000, guid: 42178502f0ef3f144a23800d4637b8ef, type: 2}
+    - {fileID: 11400000, guid: d371000c0abe7fb439758cdca1dff520, type: 2}
