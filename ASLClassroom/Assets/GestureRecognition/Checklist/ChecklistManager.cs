@@ -48,7 +48,6 @@ public class ChecklistManager : MonoBehaviour
             //spawn or get from pool            
             if (itemPool.Count == 0)
             {
-                Debug.Log("spawn and register item");
                 item = Instantiate(itemPrefab,this.transform);
                 activeItems.Add(item);
             }
@@ -58,7 +57,6 @@ public class ChecklistManager : MonoBehaviour
                 itemPool.RemoveAt(0);
                 activeItems.Add(item);
                 item.SetActive(true);
-                Debug.Log("put item in pool: " + itemPool.Count);
             }
 
             //set y position, align with other elements

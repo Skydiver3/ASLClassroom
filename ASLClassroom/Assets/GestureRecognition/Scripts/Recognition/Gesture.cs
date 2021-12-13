@@ -101,8 +101,6 @@ public class ComplexPose
             log[i] = keys[i].description;
             logStates[i] = simpleState;
 
-            Debug.Log(log[i] + logStates[i]);
-
             if (simpleState == KeyStates.Fail) failed = true;
             else if (simpleState == KeyStates.None) passed = true;
 

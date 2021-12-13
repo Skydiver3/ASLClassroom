@@ -48,7 +48,6 @@ public class PoseKey : Key
             state = KeyStates.Fail;
         }
 
-        Debug.Log(this.name + " " + state.ToString());
         return state;
         //if target pose recognized on targetHand: return Hit
         //if no new pose detected: return None

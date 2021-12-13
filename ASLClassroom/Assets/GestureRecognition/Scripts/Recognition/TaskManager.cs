@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class TaskManager : MonoBehaviour
 {
@@ -8,21 +9,27 @@ public class TaskManager : MonoBehaviour
     private int _progress = 0;
     private Task _currentTask;
     public float delayBetweenTasks = 1.0f;
+    public UnityEvent OnInit;
+    public UnityEvent OnFinish;
+    public UnityEvent OnTaskSuccessEvent;
+    public UnityEvent OnTaskFailEvent;
 
     private void OnEnable()
     {
         StartCoroutine(InitTaskList());
+        OnInit?.Invoke();
     }
 
     private void OnDisable()
     {
+        OnFinish?.Invoke();
         UnsubscribeFromTask(_currentTask);
     }
 
     private void AdvanceTask()
     {
         UnsubscribeFromTask(_currentTask);
-
+        OnTaskSuccessEvent?.Invoke();
         StartCoroutine(StartNextTaskAfterSeconds(delayBetweenTasks));
     }
     private IEnumerator StartNextTaskAfterSeconds(float seconds)
@@ -39,6 +46,7 @@ public class TaskManager : MonoBehaviour
         else
         {
             //TODO: exit quest
+            this.gameObject.SetActive(false);
         }
     }
 
@@ -61,7 +69,7 @@ public class TaskManager : MonoBehaviour
 
     private void FailTask()
     {
-        //TODO
+        OnTaskFailEvent?.Invoke();
     }
 
     private void SubscribeToTask(Task task)
