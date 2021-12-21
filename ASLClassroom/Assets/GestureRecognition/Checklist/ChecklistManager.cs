@@ -69,4 +69,17 @@ public class ChecklistManager : MonoBehaviour
         }
     }
 
+    public void Clear()
+    {
+        gestureName.text = "";
+        //hide all active items
+        foreach (GameObject item in activeItems)
+        {
+            if(item)item.SetActive(false);
+            if(item)itemPool.Add(item);
+        }
+        activeItems.Clear();
+    }
+
+
 }

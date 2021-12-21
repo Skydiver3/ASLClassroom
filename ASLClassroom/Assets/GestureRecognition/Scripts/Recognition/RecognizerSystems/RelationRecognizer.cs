@@ -20,7 +20,7 @@ public class RelationRecognizer : MonoBehaviour
         }
     }
 
-    public enum RelativeObjects { HandLeft, HandRight, Head, Forehead, Nose, EarLeft, EarRight, Mouth, Chin, Chest, IndexTipLeft, IndexTipRight, ThumbTipLeft, ThumbTipRight, PalmLeft, PalmRight }
+    public enum RelativeObjects { HandLeft, HandRight, Head, Forehead, Nose, EarLeft, EarRight, Mouth, Chin, Chest, IndexTipLeft, IndexTipRight, ThumbTipLeft, ThumbTipRight, PalmLeft, PalmRight, HandEdgeLeft, HandEdgeRight }
     public enum DistanceTypes { Far, Close, Touch, None }
 
     [SerializeField] private float maxTouching = 0.1f;
@@ -43,6 +43,8 @@ public class RelationRecognizer : MonoBehaviour
     [SerializeField] private Transform thumbTipRight;
     [SerializeField] private Transform palmLeft;
     [SerializeField] private Transform palmRight;
+    [SerializeField] private Transform handEdgeLeft;
+    [SerializeField] private Transform handEdgeRight;
 
     [SerializeField] private Transform centerEye;
 
@@ -122,7 +124,14 @@ public class RelationRecognizer : MonoBehaviour
             case RelativeObjects.PalmRight:
                 other = palmRight;
                 break;
+            case RelativeObjects.HandEdgeLeft:
+                other = handEdgeLeft;
+                break;
+            case RelativeObjects.HandEdgeRight:
+                other = handEdgeRight;
+                break;
             default:
+                Debug.Log("[RelationRecognizer] Relative object not assigned");
                 break;
         }
         return other;

@@ -9,11 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 226a47afeda52174199daa82e8105fb4, type: 3}
-  m_Name: NO
+  m_Script: {fileID: 11500000, guid: a1896a74e53e32648954ca6f42e32dfd, type: 3}
+  m_Name: PoseThumbUpL
   m_EditorClassIdentifier: 
-  complexPoses:
-  - keys:
-    - {fileID: 11400000, guid: 8a02baa7924fba2468358a12c48be878, type: 2}
-  - keys:
-    - {fileID: 11400000, guid: 262cfd855bd543640ab990d6f6596654, type: 2}
+  description: Right hand does thumbs-up
+  targetHand: 0
+  targetPose: ThumbUp

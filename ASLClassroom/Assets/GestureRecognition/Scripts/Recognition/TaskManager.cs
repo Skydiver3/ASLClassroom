@@ -10,9 +10,13 @@ public class TaskManager : MonoBehaviour
     private Task _currentTask;
     public float delayBetweenTasks = 1.0f;
     public UnityEvent OnInit;
+    public UnityEvent OnClear;
     public UnityEvent OnFinish;
     public UnityEvent OnTaskSuccessEvent;
     public UnityEvent OnTaskFailEvent;
+    public UnityEvent OnLevelFinished;
+
+    [HideInInspector] public bool cleared = false;
 
     private void OnEnable()
     {
@@ -24,6 +28,7 @@ public class TaskManager : MonoBehaviour
     {
         OnFinish?.Invoke();
         UnsubscribeFromTask(_currentTask);
+        ChecklistManager.Instance.Clear();
     }
 
     private void AdvanceTask()
@@ -45,7 +50,11 @@ public class TaskManager : MonoBehaviour
         //quest ends here, back to quest selection
         else
         {
-            //TODO: exit quest
+            if (!cleared)
+            {
+                cleared = true;
+                OnClear?.Invoke();
+            }
             this.gameObject.SetActive(false);
         }
     }
@@ -63,6 +72,7 @@ public class TaskManager : MonoBehaviour
         if (_tasks.Length != 0)
         {
             _currentTask = _tasks[0];
+            _progress = 0;
             SubscribeToTask(_currentTask);
         }
     }
@@ -80,6 +90,7 @@ public class TaskManager : MonoBehaviour
     }
     private void UnsubscribeFromTask(Task task)
     {
+        if (task == null) return;
         task.onTaskSucceeded.RemoveListener(AdvanceTask);
         task.onTaskFailed.RemoveListener(FailTask);
         task.gameObject.SetActive(false);

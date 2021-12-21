@@ -136,10 +136,10 @@ public class VocabCardVisualizer : MonoBehaviour
         {
             _queuedCards.Add(card);
         }
-        foreach (GameObject card  in _queuedCards)
+        foreach (GameObject card in _queuedCards)
         {
-            card.transform.SetParent(queuedCardSlot);
-            card.SetActive(false);
+            if (card) card.transform.SetParent(queuedCardSlot);
+            if (card) card.SetActive(false);
         }
 
         _activeCard = null;
@@ -192,7 +192,6 @@ public class VocabCardVisualizer : MonoBehaviour
             Vector3 nextPos = Vector3.Slerp(startPos, endPos, i);
             card.position = nextPos;
             yield return new WaitForSecondsRealtime(stepDelay);
-            print(stepDelay);
         }
         card.position = endPos;
         activateCardCoroutineRunning = false;

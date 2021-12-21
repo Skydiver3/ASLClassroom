@@ -22,7 +22,6 @@ public class RelativePositionKey : Key
     }
     public override void ExitKey()
     {
-        Debug.Log("Exit RelativePos Key");
     }
 
     public override KeyStates GetKeyMet()

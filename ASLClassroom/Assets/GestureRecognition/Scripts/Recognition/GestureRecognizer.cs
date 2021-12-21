@@ -6,15 +6,21 @@ using UnityEngine.Events;
 
 public class GestureRecognizer : Task
 {
+    [Tooltip("The amount of time the task waits before listening for gestures in case there is an animation")]
+    public float startDelay;
+
     public Gesture templateGesture;
     private Gesture gestureInstance;
 
     public float delayBetweenCPoses = 0.3f;
 
-    private bool isUpdating = true;
+    private bool isUpdating = false;
+    private Coroutine pauseChecklistCorioutine;
 
     private void OnEnable()
     {
+        if (startDelay > 0) StartCoroutine(PauseUpdateForSeconds(startDelay));
+        isUpdating = true;
         gestureInstance = InstantiateGesture(templateGesture);
         gestureInstance.InitGesure();
     }
@@ -45,15 +51,15 @@ public class GestureRecognizer : Task
             {
                 onTaskFailed?.Invoke();
                 gestureInstance.InitGesure();
-                StartCoroutine(PauseUpdateForSeconds(delayBetweenCPoses));
+                pauseChecklistCorioutine = StartCoroutine(PauseUpdateForSeconds(delayBetweenCPoses));
             }
             else if (gestureState == Gesture.GestureStates.Advance)
             {
                 onTaskAdvanced?.Invoke();
                 //wait a bit before advancing to show user feedback
-                StartCoroutine(PauseUpdateForSeconds(delayBetweenCPoses));
+                pauseChecklistCorioutine = StartCoroutine(PauseUpdateForSeconds(delayBetweenCPoses));
             }
-            string progressText = "(" + (gestureInstance.Progress+1) + "/" + gestureInstance.complexPoses.Count + ")";
+            string progressText = "(" + (gestureInstance.Progress + 1) + "/" + gestureInstance.complexPoses.Count + ")";
             DisplayCheckList(templateGesture.name + progressText, log, logStates);
         }
     }

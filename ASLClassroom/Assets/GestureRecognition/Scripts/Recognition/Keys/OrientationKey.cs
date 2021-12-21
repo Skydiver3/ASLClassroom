@@ -9,7 +9,7 @@ public class OrientationKey : Key
     public SkeletonType targetHand = SkeletonType.HandLeft;
     public enum OrientationType { Pointing, Facing }
     public OrientationType orientationType = OrientationType.Facing;
-    public Transform hand = null;
+    [HideInInspector] public Transform hand = null;
     //key type specific variables
     //target orientation (pointing)
     //target orientation (facing)

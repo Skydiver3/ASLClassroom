@@ -5,27 +5,50 @@ using UnityEngine;
 
 public class MovementRecognizer : MonoBehaviour
 {
+    private static MovementRecognizer _instance;
+    public static MovementRecognizer Instance { get { return _instance; } }
+
     enum MovementTypes { Arc, StraightLine, Circle, AlternatingInOut, WristTwist, FingerFlick}
-    enum Directions { Up, Down, Left, Right, Forward, Back, Still, Invalid }
+    public enum Directions { Up, Down, Left, Right, Forward, Back, Still, Invalid }
 
-    [SerializeField] TextMeshProUGUI logText;
+    [SerializeField] TextMeshProUGUI logTextR;
+    [SerializeField] TextMeshProUGUI logTextL;
 
-    //hand left
-    //hand right
+    private float minSpeed = 100;
+
     [SerializeField] Transform handL;
     [SerializeField] Transform handR;
+
+    //direction recognition
     private Vector3 previousPositionL;
     private Vector3 previousPositionR;
-    private float minSpeed = 170;
-    private float speed;
-    private Vector3 velocity= Vector3.zero;
+    private Vector3 velocityL= Vector3.zero;
+    private Vector3 velocityR= Vector3.zero;
+    private float currentMoveSpeedR;
+    private float currentMoveSpeedL;
+    private Directions currentMoveDirectionR;
+    private Directions currentMoveDirectionL;
 
+    //line recognition
+    private float minLineDistance = 0.05f;
+    private float currentLineDistanceR;
+    private Directions currentLineDirectionL = Directions.Invalid;
+    private Directions currentLineDirectionR = Directions.Invalid;
+    private Vector3 lineOriginPositionL;
+    private Vector3 lineOriginPositionR;
+    public Directions currentLineL = Directions.Invalid;
+    public Directions currentLineR = Directions.Invalid;
+
+    private void Awake()
+    {
+        if (_instance == null) _instance = this;
+        else Destroy(this.gameObject);
+    }
 
     private void Start()
     {
         StartCoroutine(SlowUpdate(7));
     }
-
 
     private IEnumerator SlowUpdate(int t)
     {
@@ -33,10 +56,16 @@ public class MovementRecognizer : MonoBehaviour
         {
             for (int i = 0; i < t; i++)
             {
-                yield return null;
+                yield return new WaitForFixedUpdate();
             }
 
-            logText.text = GetMoveDirection(handR) + " " + speed;
+            currentMoveDirectionL = GetMoveDirection(handL);
+            currentMoveDirectionR = GetMoveDirection(handR);
+            CheckForStraightLine();
+
+            if (logTextR) logTextR.text = "Direction: " + currentMoveDirectionR + " " + currentMoveSpeedR + "\n" + "Line drawn: " + currentLineR + "\n" + currentLineDistanceR;
+            if (logTextL) logTextL.text = "Direction: " + currentMoveDirectionL + " " + currentMoveSpeedL + "\n" + "Line drawn: " + currentLineL;
+
             previousPositionL = handL.transform.position;
             previousPositionR = handR.transform.position;
         }
@@ -47,14 +76,23 @@ public class MovementRecognizer : MonoBehaviour
         //get velocity of hand, get speed
         Vector3 previousPosition;
         previousPosition = (hand == handL) ? previousPositionL : previousPositionR;
+
+        //get velocity
+        Vector3 velocity;
         velocity = hand.transform.position - previousPosition;
         velocity *= 10000;
-        speed = Vector3.Magnitude(velocity);
-        //velocity = Vector3.Normalize(velocity);
 
-        if (speed < minSpeed) return Directions.Still;
+        //set currentMoveSpeed
+        float currentMoveSpeed;
+        currentMoveSpeed = Vector3.Magnitude(velocity);
+
+        //assign velocity and speed to global hand-specific variables
+        if (hand == handL) { currentMoveSpeedL = currentMoveSpeed; velocityL = velocity; }
+        else { currentMoveSpeedR = currentMoveSpeed; velocityR = velocity; }
 
         //determine where velocity is pointing
+        if (currentMoveSpeed < minSpeed) return Directions.Still;
+
         Vector3[] DirectionVectors = new Vector3[] { Vector3.up, Vector3.down, Vector3.left, Vector3.right, Vector3.forward, Vector3.back };
         float smallestDistance = Mathf.Infinity;
         int directionIndex=(int)Directions.Invalid;
@@ -74,12 +112,58 @@ public class MovementRecognizer : MonoBehaviour
 
     private void CheckForStraightLine()
     {
-        //compare velocity vector to previous vector v, save v
-        //if angle of vector is bigger than x -> not straight anymore
-        //save new v
-        //save new v every time that number has been exceeded
-        //if v has been the same for y time -> straight line = true
-        //also tell in which of six directions relative to body(middle eye) the movement went
+        //abort line if still or invalid
+        if (currentMoveDirectionL == Directions.Still || currentMoveDirectionL == Directions.Invalid)
+        {
+            lineOriginPositionL = handL.position;
+            currentLineDirectionL = currentMoveDirectionL;
+            currentLineL = Directions.Invalid;
+        }
+        if (currentMoveDirectionR == Directions.Still || currentMoveDirectionR == Directions.Invalid)
+        {
+            lineOriginPositionR = handR.position;
+            currentLineDirectionR = currentMoveDirectionR;
+            currentLineR = Directions.Invalid;
+        }
+
+        //if has been moving in the same direction for a certain distance: line success
+        bool movingInLineDirectionL = currentMoveDirectionL == currentLineDirectionL;
+        if (movingInLineDirectionL)
+        {
+            float lineLength = (lineOriginPositionL - handL.position).sqrMagnitude;
+            bool lineLongEnough = lineLength >= minLineDistance * minLineDistance;
+
+            //line success
+            if (lineLongEnough) currentLineL = currentLineDirectionL;
+            //line not long enough
+            else currentLineL = Directions.Invalid;
+        }
+        else
+        {
+            //direction has changed, reset origin position, line failed
+            //weakness: only updated when checked. Check constantly for accurate result.
+            lineOriginPositionL = handL.position;
+            currentLineDirectionL = currentMoveDirectionL;
+            currentLineL = Directions.Invalid;
+        }
+
+        //the same for other hand
+        bool movingInLineDirectionR = currentMoveDirectionR == currentLineDirectionR;
+        if (movingInLineDirectionR)
+        {
+            float lineLength = (lineOriginPositionR - handR.position).sqrMagnitude;
+            bool lineLongEnough = lineLength >= minLineDistance * minLineDistance;
+            currentLineDistanceR = (lineOriginPositionR - handR.position).magnitude;
+
+            if (lineLongEnough) currentLineR = currentLineDirectionR;
+            else currentLineR = Directions.Invalid;
+        }
+        else
+        {
+            lineOriginPositionR = handR.position;
+            currentLineDirectionR = currentMoveDirectionR;
+            currentLineR = Directions.Invalid;
+        }
     }
 
     private void CheckForArc()

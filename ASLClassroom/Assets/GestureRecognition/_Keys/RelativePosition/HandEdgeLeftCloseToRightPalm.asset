@@ -9,11 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 226a47afeda52174199daa82e8105fb4, type: 3}
-  m_Name: NO
+  m_Script: {fileID: 11500000, guid: e27de8774b3e5cd48b380ff217d1bdfb, type: 3}
+  m_Name: HandEdgeLeftCloseToRightPalm
   m_EditorClassIdentifier: 
-  complexPoses:
-  - keys:
-    - {fileID: 11400000, guid: 8a02baa7924fba2468358a12c48be878, type: 2}
-  - keys:
-    - {fileID: 11400000, guid: 262cfd855bd543640ab990d6f6596654, type: 2}
+  description: Left hand hovers above right palm
+  targetHand: 16
+  relativeObject: 15
+  targetDistance: 1
