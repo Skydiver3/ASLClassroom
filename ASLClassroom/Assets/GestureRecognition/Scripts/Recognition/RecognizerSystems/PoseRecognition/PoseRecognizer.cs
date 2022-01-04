@@ -9,6 +9,7 @@ using static OVRPlugin;
 public struct Pose
 {
     public string name;
+    public string variantDescription;
     public List<Vector3> fingerData;
     public UnityEvent onRecognized;
 }

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c76b2b014a89c04d81128eb01bdd791, type: 3}
   m_Name: FaceAwayR
   m_EditorClassIdentifier: 
-  description: Right hand facing away
+  description: Right hand facing away from you
   targetHand: 1
   orientationType: 1
   hand: {fileID: 0}

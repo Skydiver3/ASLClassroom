@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 226a47afeda52174199daa82e8105fb4, type: 3}
+  m_Name: DRINK
+  m_EditorClassIdentifier: 
+  complexPoses:
+  - keys:
+    - {fileID: 11400000, guid: 4b9169427183b98468551defc95cdbef, type: 2}
+    - {fileID: 11400000, guid: 5aa85e63ae8d7534997225c25b89b2d4, type: 2}
+    - {fileID: 11400000, guid: e71f1784354e3b14d83653b48d8e190e, type: 2}
+  - keys:
+    - {fileID: 11400000, guid: 4b9169427183b98468551defc95cdbef, type: 2}
+    - {fileID: 11400000, guid: 600ecbc5faa066741942d0b1d8a75ff5, type: 2}
+    - {fileID: 11400000, guid: e71f1784354e3b14d83653b48d8e190e, type: 2}

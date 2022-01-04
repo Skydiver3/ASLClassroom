@@ -24,8 +24,8 @@ public class MovementKey : Key
 
     public override KeyStates GetKeyMet()
     {
-        KeyStates stateL = KeyStates.None;
-        KeyStates stateR = KeyStates.None;
+        KeyStates stateL = KeyStates.Hit;
+        KeyStates stateR = KeyStates.Hit;
         if (handType == HandTypes.LeftHand || handType == HandTypes.BothHands)
         {
             //check for left hand

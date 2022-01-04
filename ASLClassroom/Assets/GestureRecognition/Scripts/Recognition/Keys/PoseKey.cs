@@ -10,6 +10,7 @@ public class PoseKey : Key
 
     //key type specific variables
     public string targetPose;
+    public List<string> ignorePoses;
     private string originalPose;
     private string currentPose;
     private KeyStates state = KeyStates.None;
@@ -40,6 +41,10 @@ public class PoseKey : Key
             state = KeyStates.Hit;
         }
         else if (currentPose == originalPose)
+        {
+            state = KeyStates.None;
+        }
+        else if (ignorePoses.Contains(currentPose))
         {
             state = KeyStates.None;
         }

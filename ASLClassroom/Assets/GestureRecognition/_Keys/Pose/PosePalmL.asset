@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1896a74e53e32648954ca6f42e32dfd, type: 3}
   m_Name: PosePalmL
   m_EditorClassIdentifier: 
-  description: Hold out your left palm
+  description: 'Handshape: Left palm held out'
   targetHand: 0
   targetPose: Palm
+  ignorePoses: []

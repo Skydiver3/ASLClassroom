@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1896a74e53e32648954ca6f42e32dfd, type: 3}
   m_Name: PoseThumbUpL
   m_EditorClassIdentifier: 
-  description: Right hand does thumbs-up
+  description: Left hand does thumbs-up
   targetHand: 0
   targetPose: ThumbUp
