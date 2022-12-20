@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
+#if UNITY_EDITOR
 using UnityEditor.Animations;
+#endif
 
 public class HierarchyRecorder : MonoBehaviour
 {
+#if UNITY_EDITOR
     // The clip the recording is going to be saved to.
     public AnimationClip clip;
 
@@ -46,5 +48,7 @@ public class HierarchyRecorder : MonoBehaviour
             m_Recorder.SaveToClip(clip);
             m_Recorder.ResetRecording();
         }
+
     }
+#endif
 }
