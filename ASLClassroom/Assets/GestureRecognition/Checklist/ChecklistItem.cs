@@ -10,10 +10,15 @@ public class ChecklistItem : MonoBehaviour
     public GameObject emptyBox;
     public GameObject checkedBox;
     public GameObject crossedBox;
+    public Image image;
 
-    public void SetDisplay(string message, KeyStates state)
+    public void SetDisplay(string message, KeyStates state, Sprite sprite)
     {
         messageText.text = message;
+
+        if (sprite) image.enabled = true;
+        else image.enabled = false;
+        image.sprite = sprite;
 
         checkedBox.SetActive(false);
         crossedBox.SetActive(false);

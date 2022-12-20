@@ -58,6 +58,8 @@ public class MovementKey : Key
         recognizer = MovementRecognizer.Instance;
     }
 
+
+#if UNITY_EDITOR
     [CustomEditor(typeof(MovementKey))]
     public class MovementKeyEditor : Editor
     {
@@ -82,4 +84,5 @@ public class MovementKey : Key
             serializedObject.ApplyModifiedProperties();
         }
     }
+#endif
 }

@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: PoseFistL
   m_EditorClassIdentifier: 
   description: Make a fist with your left hand
-  targetHand: 0
+  sprite: {fileID: 21300000, guid: 0e58e59a0f9850644bf7ec7e06f4f88d, type: 3}
+  usedHand: 0
   targetPose: Fist
   ignorePoses:
+  - Tension12
+  alternativePoses:
   - Tension12

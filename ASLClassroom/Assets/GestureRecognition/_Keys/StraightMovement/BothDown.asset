@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: BothDown
   m_EditorClassIdentifier: 
   description: Move both hands down, simultaneously
+  sprite: {fileID: 21300000, guid: 54b7387e6aa36d246a84f0860b507299, type: 3}
   handType: 2
   lineDirectionL: 1
   lineDirectionR: 1

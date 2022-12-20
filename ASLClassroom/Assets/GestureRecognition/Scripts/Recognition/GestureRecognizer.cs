@@ -23,6 +23,7 @@ public class GestureRecognizer : Task
         isUpdating = true;
         gestureInstance = InstantiateGesture(templateGesture);
         gestureInstance.InitGesure();
+        onTaskBegin?.Invoke();
     }
     private void OnDisable()
     {
@@ -41,7 +42,8 @@ public class GestureRecognizer : Task
 
             string[] log = null;
             KeyStates[] logStates = null;
-            gestureState = gestureInstance.UpdateProgress(out log, out logStates);
+            Sprite[] keySprites = null;
+            gestureState = gestureInstance.UpdateProgress(out log, out logStates, out keySprites);
 
             if (gestureState == Gesture.GestureStates.Succeeded)
             {
@@ -60,7 +62,7 @@ public class GestureRecognizer : Task
                 pauseChecklistCorioutine = StartCoroutine(PauseUpdateForSeconds(delayBetweenCPoses));
             }
             string progressText = "(" + (gestureInstance.Progress + 1) + "/" + gestureInstance.complexPoses.Count + ")";
-            DisplayCheckList(templateGesture.name + progressText, log, logStates);
+            DisplayCheckList(templateGesture.name + progressText, templateGesture.description, log, logStates, keySprites);
         }
     }
 
@@ -79,9 +81,9 @@ public class GestureRecognizer : Task
         return instanceGesture;
     }
 
-    private void DisplayCheckList(string gestureName, string[] messages, KeyStates[] states)
+    protected virtual void DisplayCheckList(string gestureName, string gestureDescription, string[] messages, KeyStates[] states, Sprite[] sprites)
     {
-        ChecklistManager.Instance.UpdateItems(gestureName, messages, states);
+        ChecklistManager.Instance.UpdateItems(gestureName, gestureDescription, messages, states, sprites);
     }
 
     private IEnumerator PauseUpdateForSeconds(float seconds)

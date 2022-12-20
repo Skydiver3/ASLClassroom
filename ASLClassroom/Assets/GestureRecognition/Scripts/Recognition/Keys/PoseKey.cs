@@ -6,11 +6,13 @@ using static OVRPlugin;
 [CreateAssetMenu(fileName = "PoseKey", menuName = "Gesture Keys/Pose Key")]
 public class PoseKey : Key
 {
-    public SkeletonType targetHand = SkeletonType.HandLeft;
+    private SkeletonType targetHand = SkeletonType.HandLeft;
+    public PlayerData.HandTypes usedHand = PlayerData.HandTypes.DominantHand;
 
     //key type specific variables
     public string targetPose;
     public List<string> ignorePoses;
+    public List<string> alternativePoses;
     private string originalPose;
     private string currentPose;
     private KeyStates state = KeyStates.None;
@@ -19,6 +21,8 @@ public class PoseKey : Key
     //subscribes to detection system
     public override void InitKey()
     {
+        targetHand = (SkeletonType)PlayerObjectReferences.Instance.GetIndexByHandType(usedHand);
+
         recognizer = PoseRecognizer.Instance;
         recognizer.PoseRecognizedEvent += OnPoseRecognized;
 
@@ -36,7 +40,7 @@ public class PoseKey : Key
     }
     public override KeyStates GetKeyMet()
     {
-        if (currentPose == targetPose)
+        if (currentPose == targetPose || alternativePoses.Contains(currentPose))
         {
             state = KeyStates.Hit;
         }

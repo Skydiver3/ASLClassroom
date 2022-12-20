@@ -13,5 +13,9 @@ MonoBehaviour:
   m_Name: PoseCR
   m_EditorClassIdentifier: 
   description: Curl your fingers like a crescent moon, a C shape.
-  targetHand: 1
+  sprite: {fileID: 21300000, guid: 046fd34da3dcdd049b995d1ac8d203f9, type: 3}
+  usedHand: 0
   targetPose: C
+  ignorePoses: []
+  alternativePoses:
+  - Claw

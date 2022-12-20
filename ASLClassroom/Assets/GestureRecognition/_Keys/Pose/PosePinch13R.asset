@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: PosePinch13R
   m_EditorClassIdentifier: 
   description: Pinch your right thumb and middle finger
-  targetHand: 1
+  sprite: {fileID: 21300000, guid: 50611534df17aea4fb8acb1cbe930431, type: 3}
+  usedHand: 0
   targetPose: Pinch13
   ignorePoses:
   - Claw
   - Palm
+  alternativePoses: []

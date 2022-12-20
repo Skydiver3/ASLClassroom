@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 226a47afeda52174199daa82e8105fb4, type: 3}
   m_Name: YOU
   m_EditorClassIdentifier: 
+  description: Point at the other person.
   complexPoses:
   - keys:
     - {fileID: 11400000, guid: 47ca438eccc65114c8c28ae553a47a87, type: 2}

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 226a47afeda52174199daa82e8105fb4, type: 3}
   m_Name: THANK YOU
   m_EditorClassIdentifier: 
+  description: Touch your chin, then move the hand away.
   complexPoses:
   - keys:
     - {fileID: 11400000, guid: 72694db972d802148b00f2c7ced1776b, type: 2}

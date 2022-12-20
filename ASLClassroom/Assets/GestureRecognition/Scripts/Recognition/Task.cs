@@ -5,6 +5,7 @@ using UnityEngine.Events;
 
 public class Task : MonoBehaviour
 {
+    public UnityEvent onTaskBegin;
     public UnityEvent onTaskSucceeded;
     public UnityEvent onTaskAdvanced;
     public UnityEvent onTaskFailed;

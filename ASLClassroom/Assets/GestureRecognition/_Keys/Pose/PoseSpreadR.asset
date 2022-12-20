@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: PoseSpreadR
   m_EditorClassIdentifier: 
   description: Spread the fingers of your right hand far apart!
-  targetHand: 1
+  sprite: {fileID: 21300000, guid: 502b751fab6818e47b123a16ecd9170b, type: 3}
+  usedHand: 0
   targetPose: Spread
-  ignorePoses:
+  ignorePoses: []
+  alternativePoses:
   - Palm

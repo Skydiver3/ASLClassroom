@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c76b2b014a89c04d81128eb01bdd791, type: 3}
   m_Name: FaceUpR
   m_EditorClassIdentifier: 
-  description: Palm of right hand facing up
-  targetHand: 1
+  description: Palm of dominant hand facing up
+  sprite: {fileID: 21300000, guid: 4b5c8a9425cd1e64590ab78943f341c7, type: 3}
+  targetObject: 0
   orientationType: 1
-  hand: {fileID: 0}
   targetDirection: 2
+  orientedObject: {fileID: 0}

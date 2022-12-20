@@ -10,14 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 226a47afeda52174199daa82e8105fb4, type: 3}
-  m_Name: UNDERSTAND
+  m_Name: WHY
   m_EditorClassIdentifier: 
+  description: Move your hand away from your head, fold your fingers.
   complexPoses:
   - keys:
-    - {fileID: 11400000, guid: 32e12decb463baf42b086e1891166dcb, type: 2}
-    - {fileID: 11400000, guid: 9423a301d6a14d54b813dd04d5b49f39, type: 2}
     - {fileID: 11400000, guid: dbc54ea0b530ca04290d5344bcc58623, type: 2}
+    - {fileID: 11400000, guid: 72694db972d802148b00f2c7ced1776b, type: 2}
   - keys:
-    - {fileID: 11400000, guid: 9fd6ceca99055be42a29b5cc1ab95f39, type: 2}
-    - {fileID: 11400000, guid: 9423a301d6a14d54b813dd04d5b49f39, type: 2}
-    - {fileID: 11400000, guid: dbc54ea0b530ca04290d5344bcc58623, type: 2}
+    - {fileID: 11400000, guid: 626d68d0e9bf6bf4ba6216a7b99bce96, type: 2}
+    - {fileID: 11400000, guid: 0477b17f17eedfd489d37ac55046adce, type: 2}

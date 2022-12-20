@@ -6,51 +6,52 @@ using static OVRPlugin;
 [CreateAssetMenu(fileName = "OrientationKey", menuName = "Gesture Keys/Orientation Key")]
 public class OrientationKey : Key
 {
-    public SkeletonType targetHand = SkeletonType.HandLeft;
-    public enum OrientationType { Pointing, Facing }
-    public OrientationType orientationType = OrientationType.Facing;
-    [HideInInspector] public Transform hand = null;
-    //key type specific variables
+    public PlayerData.BodyParts targetObject = PlayerData.BodyParts.HandDominant;
+
     //target orientation (pointing)
     //target orientation (facing)
+    public enum OrientationType { Pointing, Facing }
+    public OrientationType orientationType = OrientationType.Facing;
+
     public OrientationRecognizer.Directions targetDirection;
     private OrientationRecognizer.Directions originalDirection;
 
+    [HideInInspector] public Transform orientedObject = null;
 
     public override void InitKey()
     {
-        hand = null;
-        GetHand();
+        orientedObject = null;
+        GetObject();
 
         if (orientationType == OrientationType.Facing)
         {
-            originalDirection = OrientationRecognizer.Instance.GetFacingDirection(hand);
+            originalDirection = OrientationRecognizer.Instance.GetFacingDirection(orientedObject);
         }
         else
         {
-            originalDirection = OrientationRecognizer.Instance.GetForwardDirection(hand);
+            originalDirection = OrientationRecognizer.Instance.GetForwardDirection(orientedObject);
         }
     }
     public override void ExitKey()
     {
-        hand = null;
+        orientedObject = null;
     }
     public override KeyStates GetKeyMet()
     {
-        if (hand==null)
+        if (orientedObject==null)
         {
             InitKey();
-            if (hand ==null) return KeyStates.None;
+            if (orientedObject ==null) return KeyStates.None;
         }
 
         OrientationRecognizer.Directions direction;
         if (orientationType == OrientationType.Facing)
         {
-            direction = OrientationRecognizer.Instance.GetFacingDirection(hand);
+            direction = OrientationRecognizer.Instance.GetFacingDirection(orientedObject);
         }
         else
         {
-            direction = OrientationRecognizer.Instance.GetForwardDirection(hand);
+            direction = OrientationRecognizer.Instance.GetForwardDirection(orientedObject);
         }
 
         if (direction == targetDirection)
@@ -67,10 +68,9 @@ public class OrientationKey : Key
         }
     }
 
-    private void GetHand()
+    private void GetObject()
     {
-        if (targetHand == SkeletonType.HandLeft) hand = OrientationRecognizer.Instance.handL.transform;
-        else hand = OrientationRecognizer.Instance.handR.transform;
+        orientedObject = PlayerObjectReferences.Instance.GetObject(targetObject);
     }
 }
 

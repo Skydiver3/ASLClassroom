@@ -4,7 +4,10 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/GestureRecognition/Scenes/GestureRecognitionTest.unity
+    guid: 3ec5e9f072a64f54e9f9925f6a91a873
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 9307da299c712144aa6aeae4e5df2261, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: e1ebd53605bb0b8438c5f519baad8fc2, type: 2}

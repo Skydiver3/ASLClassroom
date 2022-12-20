@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 226a47afeda52174199daa82e8105fb4, type: 3}
   m_Name: NO
   m_EditorClassIdentifier: 
+  description: Fingers snap closed.
   complexPoses:
   - keys:
     - {fileID: 11400000, guid: 8a02baa7924fba2468358a12c48be878, type: 2}

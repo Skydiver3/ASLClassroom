@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: PosePalmL
   m_EditorClassIdentifier: 
   description: 'Handshape: Left palm held out'
-  targetHand: 0
+  sprite: {fileID: 21300000, guid: f4746c82f31273a4d8814a3e52b483f1, type: 3}
+  usedHand: 1
   targetPose: Palm
   ignorePoses: []
+  alternativePoses: []

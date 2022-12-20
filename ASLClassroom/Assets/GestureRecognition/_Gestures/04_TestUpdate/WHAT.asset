@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 226a47afeda52174199daa82e8105fb4, type: 3}
+  m_Name: WHAT
+  m_EditorClassIdentifier: 
+  description: Shrug, move your hands in and out.
+  complexPoses:
+  - keys:
+    - {fileID: 11400000, guid: 72694db972d802148b00f2c7ced1776b, type: 2}
+    - {fileID: 11400000, guid: d467d97599be69e408504839a9ca407e, type: 2}
+    - {fileID: 11400000, guid: b93ce3aab61a40044a53ebb0e13e4bfa, type: 2}
+    - {fileID: 11400000, guid: 671c814348bb0f04eaf475641df413e3, type: 2}
+    - {fileID: 11400000, guid: 0dc1235c358577b40817abdd783ff05d, type: 2}
+  - keys:
+    - {fileID: 11400000, guid: 72694db972d802148b00f2c7ced1776b, type: 2}
+    - {fileID: 11400000, guid: d467d97599be69e408504839a9ca407e, type: 2}
+    - {fileID: 11400000, guid: b93ce3aab61a40044a53ebb0e13e4bfa, type: 2}
+    - {fileID: 11400000, guid: 671c814348bb0f04eaf475641df413e3, type: 2}
+    - {fileID: 11400000, guid: 502bbf47a1314314ab6ce400f5bc851f, type: 2}
+  - keys:
+    - {fileID: 11400000, guid: 72694db972d802148b00f2c7ced1776b, type: 2}
+    - {fileID: 11400000, guid: d467d97599be69e408504839a9ca407e, type: 2}
+    - {fileID: 11400000, guid: b93ce3aab61a40044a53ebb0e13e4bfa, type: 2}
+    - {fileID: 11400000, guid: 671c814348bb0f04eaf475641df413e3, type: 2}
+    - {fileID: 11400000, guid: 0dc1235c358577b40817abdd783ff05d, type: 2}

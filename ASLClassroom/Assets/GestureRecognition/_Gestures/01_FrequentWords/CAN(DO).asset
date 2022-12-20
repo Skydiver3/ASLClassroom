@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 226a47afeda52174199daa82e8105fb4, type: 3}
   m_Name: CAN(DO)
   m_EditorClassIdentifier: 
+  description: Make fists, move them down.
   complexPoses:
   - keys:
     - {fileID: 11400000, guid: 22866a4ae81178640a40ebc72aa0e028, type: 2}

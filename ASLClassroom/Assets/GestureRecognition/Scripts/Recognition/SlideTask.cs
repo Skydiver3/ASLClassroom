@@ -15,6 +15,7 @@ public class SlideTask : Task
         _slide = _slideInstance.GetComponent<ContextSlide>();
         if (!_slide) Debug.LogError("[Slide Task] No ContextSlide script attached to slide");
         _slide.finishButton.onTriggerEnter.AddListener(CloseTask);
+        onTaskBegin?.Invoke();
     }
 
     private void CloseTask()

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: IndexRTouchChin
   m_EditorClassIdentifier: 
   description: Touch your chin with your right hand
+  sprite: {fileID: 21300000, guid: ed27b1360419d8042bf34e998a3ae460, type: 3}
   targetHand: 11
   relativeObject: 8
   targetDistance: 1

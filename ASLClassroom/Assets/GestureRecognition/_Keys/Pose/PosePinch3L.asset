@@ -13,5 +13,8 @@ MonoBehaviour:
   m_Name: PosePinch3L
   m_EditorClassIdentifier: 
   description: Pinch the first three fingers of your left hand
-  targetHand: 0
+  sprite: {fileID: 21300000, guid: 7342a9f83394c704eac60027c4656e4f, type: 3}
+  usedHand: 1
   targetPose: Pinch3
+  ignorePoses: []
+  alternativePoses: []

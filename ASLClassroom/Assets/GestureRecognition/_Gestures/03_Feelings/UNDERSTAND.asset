@@ -10,14 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 226a47afeda52174199daa82e8105fb4, type: 3}
-  m_Name: LIKE
+  m_Name: UNDERSTAND
   m_EditorClassIdentifier: 
+  description: Snap your fingers open next to your head. Like a light turning on.
   complexPoses:
   - keys:
-    - {fileID: 11400000, guid: 109b199f94f628d478f73730994a2547, type: 2}
+    - {fileID: 11400000, guid: 32e12decb463baf42b086e1891166dcb, type: 2}
     - {fileID: 11400000, guid: 9423a301d6a14d54b813dd04d5b49f39, type: 2}
-    - {fileID: 11400000, guid: 43ce3a18636733a49a68f4bcd28626c0, type: 2}
+    - {fileID: 11400000, guid: dbc54ea0b530ca04290d5344bcc58623, type: 2}
   - keys:
-    - {fileID: 11400000, guid: 566356067c8ed564f888828dda2f8cbe, type: 2}
-    - {fileID: 11400000, guid: ff6d56f364dece24aaa8dc68706c54de, type: 2}
+    - {fileID: 11400000, guid: 9fd6ceca99055be42a29b5cc1ab95f39, type: 2}
     - {fileID: 11400000, guid: 9423a301d6a14d54b813dd04d5b49f39, type: 2}
+    - {fileID: 11400000, guid: dbc54ea0b530ca04290d5344bcc58623, type: 2}

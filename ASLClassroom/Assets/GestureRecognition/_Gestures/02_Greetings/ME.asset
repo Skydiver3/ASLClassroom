@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 226a47afeda52174199daa82e8105fb4, type: 3}
   m_Name: ME
   m_EditorClassIdentifier: 
+  description: Point at your chest.
   complexPoses:
   - keys:
     - {fileID: 11400000, guid: 47ca438eccc65114c8c28ae553a47a87, type: 2}
-    - {fileID: 11400000, guid: 2081e01f148b7ef4e99f0563e09c10bc, type: 2}
+    - {fileID: 11400000, guid: f497e1da714d95440a5d5dfbd312018c, type: 2}

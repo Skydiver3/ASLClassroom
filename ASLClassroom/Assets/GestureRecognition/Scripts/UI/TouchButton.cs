@@ -33,7 +33,7 @@ public class TouchButton : MonoBehaviour
     public void SetActive(bool active)
     {
         interactive = active;
-        buttonText.SetActive(active);
+        if (buttonText) buttonText.SetActive(active);
 
         if (active)
         {

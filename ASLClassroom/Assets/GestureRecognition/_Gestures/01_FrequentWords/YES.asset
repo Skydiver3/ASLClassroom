@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 226a47afeda52174199daa82e8105fb4, type: 3}
   m_Name: YES
   m_EditorClassIdentifier: 
+  description: Like you're nodding with your fist.
   complexPoses:
   - keys:
     - {fileID: 11400000, guid: b3fe61d1c58e1a545b70caafd70b7bd5, type: 2}

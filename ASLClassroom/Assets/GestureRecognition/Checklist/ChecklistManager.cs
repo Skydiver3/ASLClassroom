@@ -14,8 +14,11 @@ public class ChecklistManager : MonoBehaviour
     private List<GameObject> activeItems = new List<GameObject>();
 
     public TextMeshProUGUI gestureName;
+    public TextMeshProUGUI gestureDescription;
     public float distance;
     private float height;
+
+    public TouchButton exitButton;
 
     private void Awake()
     {
@@ -29,9 +32,10 @@ public class ChecklistManager : MonoBehaviour
         }
     }
 
-    public void UpdateItems(string _gestureName, string[] _messages, KeyStates[] _states)
+    public void UpdateItems(string _gestureName, string _gestureDescription, string[] _messages, KeyStates[] _states, Sprite[] _sprites)
     {
         gestureName.text = "Gesture: " + _gestureName;
+        gestureDescription.text = _gestureDescription;
         //hide all active items
         foreach (GameObject item in activeItems)
         {
@@ -65,13 +69,58 @@ public class ChecklistManager : MonoBehaviour
             rTransform.localPosition = Vector3.up * (height + distance) * i;
 
             //set text and state of checkbox on item
-            item.GetComponent<ChecklistItem>().SetDisplay(_messages[i], _states[i]);
+            item.GetComponent<ChecklistItem>().SetDisplay(_messages[i], _states[i], _sprites[i]);
+        }
+    }
+    public void UpdateOnlyExplicitItems(string _gestureName, string _gestureDescription, string[] _messages, KeyStates[] _states, Sprite[] _sprites)
+    {
+        gestureName.text = "Repeat: " + _gestureName;
+        gestureDescription.text = "Repeat the gesture from memory";
+        //hide all active items
+        foreach (GameObject item in activeItems)
+        {
+            item.SetActive(false);
+            itemPool.Add(item);
+        }
+        activeItems.Clear();
+
+        //show all needed items
+        int j = 0;
+        for (int i = 0; i < _messages.Length; i++)
+        {
+            if (_states[i] == KeyStates.None) continue;
+            
+            GameObject item = null;
+
+            //spawn or get from pool            
+            if (itemPool.Count == 0)
+            {
+                item = Instantiate(itemPrefab,this.transform);
+                activeItems.Add(item);
+            }
+            else if (itemPool.Count != 0)
+            {
+                item = itemPool[0];
+                itemPool.RemoveAt(0);
+                activeItems.Add(item);
+                item.SetActive(true);
+            }
+
+            //set y position, align with other elements
+            RectTransform rTransform = item.GetComponent<RectTransform>();
+            float height = rTransform.rect.y;
+            rTransform.localPosition = Vector3.up * (height + distance) * j;
+            j++;
+
+            //set text and state of checkbox on item
+            item.GetComponent<ChecklistItem>().SetDisplay(_messages[i], _states[i], null);
         }
     }
 
     public void Clear()
     {
         gestureName.text = "";
+        gestureDescription.text = "";
         //hide all active items
         foreach (GameObject item in activeItems)
         {

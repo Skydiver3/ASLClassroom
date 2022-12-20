@@ -10,16 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 226a47afeda52174199daa82e8105fb4, type: 3}
-  m_Name: NOT
+  m_Name: DRINK
   m_EditorClassIdentifier: 
+  description: Pretend like you are holding a cup and drinking from it.
   complexPoses:
   - keys:
-    - {fileID: 11400000, guid: b6267ec63e5c7d4468153337ddffe441, type: 2}
-    - {fileID: 11400000, guid: 0b810a6b0c33b4d40a4a69d54159b964, type: 2}
-    - {fileID: 11400000, guid: 600ecbc5faa066741942d0b1d8a75ff5, type: 2}
     - {fileID: 11400000, guid: 4b9169427183b98468551defc95cdbef, type: 2}
+    - {fileID: 11400000, guid: fbdeaaf7a95980a49b65671f0723cf3c, type: 2}
+    - {fileID: 11400000, guid: e71f1784354e3b14d83653b48d8e190e, type: 2}
   - keys:
-    - {fileID: 11400000, guid: b6267ec63e5c7d4468153337ddffe441, type: 2}
-    - {fileID: 11400000, guid: ff6d56f364dece24aaa8dc68706c54de, type: 2}
-    - {fileID: 11400000, guid: 5aa85e63ae8d7534997225c25b89b2d4, type: 2}
     - {fileID: 11400000, guid: 4b9169427183b98468551defc95cdbef, type: 2}
+    - {fileID: 11400000, guid: 600ecbc5faa066741942d0b1d8a75ff5, type: 2}
+    - {fileID: 11400000, guid: e71f1784354e3b14d83653b48d8e190e, type: 2}

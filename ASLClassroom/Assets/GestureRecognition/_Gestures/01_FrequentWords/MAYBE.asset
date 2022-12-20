@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 226a47afeda52174199daa82e8105fb4, type: 3}
   m_Name: MAYBE
   m_EditorClassIdentifier: 
+  description: Move your hands up and down.
   complexPoses:
   - keys:
     - {fileID: 11400000, guid: d467d97599be69e408504839a9ca407e, type: 2}

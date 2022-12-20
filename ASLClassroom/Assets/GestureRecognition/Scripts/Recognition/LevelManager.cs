@@ -25,7 +25,7 @@ public class LevelManager : MonoBehaviour
                 Debug.LogError("[Level Manager] Level or Button not assigned.");
                 return;
             }
-            print(i);
+
             int _i = i;
             _levelButtons[i].onTriggerEnter.AddListener(delegate { print(_i); StartLevel(_i); });
             _levels[i].OnClear.AddListener(delegate { _progress = _i + 2; });
@@ -69,13 +69,21 @@ public class LevelManager : MonoBehaviour
         taskView.SetActive(true);
 
         level.gameObject.SetActive(true);
+
+        ChecklistManager.Instance.exitButton.onTriggerEnter.AddListener(ExitCurrentLevel);
     }
     private void ExitLevel(TaskManager level)
     {
         if (!level) return;
+        ChecklistManager.Instance.exitButton.onTriggerEnter.RemoveListener(ExitCurrentLevel);
 
-        levelSelectView.SetActive(true);
-        taskView.SetActive(false);
+        if(levelSelectView)levelSelectView.SetActive(true);
+        if(taskView)taskView.SetActive(false);
+
         UpdateButtonsByProgress();
+    }
+    private void ExitCurrentLevel()
+    {
+        ExitLevel(_levels[_progress]);
     }
 }

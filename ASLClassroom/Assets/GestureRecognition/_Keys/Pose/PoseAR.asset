@@ -14,7 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   description: A handshpe (Fist with your thumb on the curled outer edge of your
     index finger) with your right hand
-  targetHand: 1
+  sprite: {fileID: 21300000, guid: a5bcf380cca54784996063155b63629d, type: 3}
+  usedHand: 0
   targetPose: A
   ignorePoses:
   - Tension12
+  alternativePoses: []

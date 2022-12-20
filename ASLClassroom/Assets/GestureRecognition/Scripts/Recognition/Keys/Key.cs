@@ -1,5 +1,6 @@
 
 using UnityEngine;
+using UnityEngine.UI;
 using static OVRPlugin;
 
 public enum KeyStates
@@ -11,6 +12,7 @@ public enum KeyStates
 public abstract class Key : ScriptableObject
 {
     public string description;
+    public Sprite sprite;
     public abstract void InitKey();
     public abstract void ExitKey();
     public abstract KeyStates GetKeyMet();

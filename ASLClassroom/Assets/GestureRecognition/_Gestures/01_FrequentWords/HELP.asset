@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 226a47afeda52174199daa82e8105fb4, type: 3}
   m_Name: HELP
   m_EditorClassIdentifier: 
+  description: Open hand faces up, then knock on it with your fist a few times.
   complexPoses:
   - keys:
     - {fileID: 11400000, guid: b01a8587bf3145c45a16b3f10e90e8d5, type: 2}

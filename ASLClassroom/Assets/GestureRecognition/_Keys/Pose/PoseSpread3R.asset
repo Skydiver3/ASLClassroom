@@ -13,5 +13,8 @@ MonoBehaviour:
   m_Name: PoseSpread3R
   m_EditorClassIdentifier: 
   description: Spread the first three fingers of your right hand
-  targetHand: 1
+  sprite: {fileID: 21300000, guid: 9f7861071ee9b77489a826d55a892134, type: 3}
+  usedHand: 0
   targetPose: Spread3
+  ignorePoses: []
+  alternativePoses: []

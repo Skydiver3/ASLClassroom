@@ -9,6 +9,7 @@ using UnityEngine;
 public class Gesture : ScriptableObject
 {
     public enum GestureStates { Advance, Failed, Succeeded, Pass }
+    public string description;
     public List<ComplexPose> complexPoses;
 
     private int _progress = 0;
@@ -25,10 +26,10 @@ public class Gesture : ScriptableObject
 
     //manage gesture progress
     //messages gesture recognizer about progress of currently observed gesture
-    public GestureStates UpdateProgress(out string[] log, out KeyStates[] logStates)
+    public GestureStates UpdateProgress(out string[] log, out KeyStates[] logStates, out Sprite[] keySprites)
     {
         GestureStates message = GestureStates.Pass;
-        KeyStates complexState = complexPoses[_progress].GetKeysMet(out log, out logStates);
+        KeyStates complexState = complexPoses[_progress].GetKeysMet(out log, out logStates, out keySprites);
         switch (complexState)
         {
             case KeyStates.Hit:
@@ -86,7 +87,7 @@ public class ComplexPose
     //analyze key state:
     //if any simple key fails, pose automatically fails
     //if any simple key is not yet reached, pose does not succeed yet
-    public KeyStates GetKeysMet(out string[] log, out KeyStates[] logStates)
+    public KeyStates GetKeysMet(out string[] log, out KeyStates[] logStates, out Sprite[] keySprites)
     {
         KeyStates state = KeyStates.Hit;
         bool failed = false;
@@ -94,12 +95,14 @@ public class ComplexPose
 
         log = new string[keys.Count];
         logStates = new KeyStates[keys.Count];
+        keySprites = new Sprite[keys.Count];
         for (int i = 0; i < keys.Count; i++)
         {
             KeyStates simpleState = keys[i].GetKeyMet();
 
             log[i] = keys[i].description;
             logStates[i] = simpleState;
+            keySprites[i] = keys[i].sprite;
 
             if (simpleState == KeyStates.Fail) failed = true;
             else if (simpleState == KeyStates.None) passed = true;
