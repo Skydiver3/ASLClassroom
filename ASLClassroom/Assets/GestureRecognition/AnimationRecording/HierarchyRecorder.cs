@@ -5,6 +5,9 @@ using UnityEngine;
 using UnityEditor.Animations;
 #endif
 
+/// <summary>
+/// Records transform data from a Game Object and its children to an animation clip.
+/// </summary>
 public class HierarchyRecorder : MonoBehaviour
 {
 #if UNITY_EDITOR

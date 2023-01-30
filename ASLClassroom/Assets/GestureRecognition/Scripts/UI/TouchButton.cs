@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+/// <summary>
+/// A hover trigger that changes the color of a mesh and calls events. 
+/// Part of a prefab that links the mesh with a smaller, inner mesh to get both hover(for near button) and touch (for actual trigger) events.
+/// </summary>
 public class TouchButton : MonoBehaviour
 {
     private ButtonInnerTrigger innerTrigger;

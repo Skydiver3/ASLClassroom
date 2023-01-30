@@ -3,13 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using static OVRPlugin;
 
+/// <summary>
+/// The Key for hand orientation. Where is the hand pointing? Where is it facing? 
+/// Directions relative to world coordinates.
+/// Subscribes to Orientation Recognizer in the scene and compares the recognized current orientation to success and fail criteria.
+/// </summary>
 [CreateAssetMenu(fileName = "OrientationKey", menuName = "Gesture Keys/Orientation Key")]
 public class OrientationKey : Key
 {
     public PlayerData.BodyParts targetObject = PlayerData.BodyParts.HandDominant;
 
-    //target orientation (pointing)
-    //target orientation (facing)
     public enum OrientationType { Pointing, Facing }
     public OrientationType orientationType = OrientationType.Facing;
 
@@ -18,6 +21,7 @@ public class OrientationKey : Key
 
     [HideInInspector] public Transform orientedObject = null;
 
+    //Get initial hand orientation, that one would not count as a failure.
     public override void InitKey()
     {
         orientedObject = null;
@@ -36,6 +40,8 @@ public class OrientationKey : Key
     {
         orientedObject = null;
     }
+
+    //Compares current orientation data from the recognizer object in the scene to specified success and fail criteria.
     public override KeyStates GetKeyMet()
     {
         if (orientedObject==null)

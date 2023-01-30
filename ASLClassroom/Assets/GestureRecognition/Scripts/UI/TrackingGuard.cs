@@ -4,6 +4,9 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// A warning screen that fades in and out, depending on whether or not the hands are being tracked.
+/// </summary>
 public class TrackingGuard : MonoBehaviour
 {
     [SerializeField] private OVRHand _handL;

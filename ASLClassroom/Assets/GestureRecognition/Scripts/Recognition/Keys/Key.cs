@@ -9,6 +9,9 @@ public enum KeyStates
     Fail,
     None
 }
+/// <summary>
+/// Atomic parts that gestures are made of. Describes one dimension of a Complex Pose, be it directional movement, hand shape, orientation, or relative position. 
+/// </summary>
 public abstract class Key : ScriptableObject
 {
     public string description;

@@ -4,7 +4,9 @@ using TMPro;
 using Unity.Collections;
 using UnityEngine;
 
-
+/// <summary>
+/// A Gesture describes a word from ASL, where a sequence of Complex Poses (made up of movements or hand poses for example) conveys a certain meaning.
+/// </summary>
 [CreateAssetMenu(fileName = "Gesture", menuName = "Gesture Keys/Gesture")]
 public class Gesture : ScriptableObject
 {
@@ -65,6 +67,10 @@ public class Gesture : ScriptableObject
 
 }
 
+/// <summary>
+/// A Complex Pose is a collection of simple keys like for position or pose, used like keyframes that make up a gesture. 
+/// A Complex Pose might be an open palm that faces forward, like in the YOURS gesture. Also referred to as CPose.
+/// </summary>
 [System.Serializable]
 public class ComplexPose
 {

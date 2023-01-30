@@ -3,6 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using static OVRPlugin;
 
+/// <summary>
+/// The Key for hand poses. Are you making a fist? Holding out an open palm? 
+/// Ignores poses that are similar and can happen through tracking glitches.
+/// Possibility to include alternative poses that pass too.
+/// Subscribes to Pose Recognizer system in scene and compares recognized pose names from there to specified success and fail conditions.
+/// </summary>
 [CreateAssetMenu(fileName = "PoseKey", menuName = "Gesture Keys/Pose Key")]
 public class PoseKey : Key
 {

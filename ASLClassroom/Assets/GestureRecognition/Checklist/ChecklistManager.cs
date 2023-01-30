@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
+/// <summary>
+/// Manages the items on the checklist display. Spawns and hides gesture instructions.
+/// </summary>
 public class ChecklistManager : MonoBehaviour
 {
     private static ChecklistManager _instance;

@@ -4,7 +4,9 @@ using UnityEngine;
 using TMPro;
 using static OVRPlugin;
 
-
+/// <summary>
+/// Prototype of course management system. Deprecated.
+/// </summary>
 public class TutorialManager : MonoBehaviour
 {
     [System.Serializable]

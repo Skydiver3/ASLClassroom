@@ -3,24 +3,28 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+/// <summary>
+/// Manages navigation between levels. Locks and unlocks levels based on player progress during this session. Handles exit level buttons.
+/// </summary>
 public class LevelManager : MonoBehaviour
 {
-    //TODO: make this a branching thing
     private int _progress = 1;
     [SerializeField] private List<TouchButton> _levelButtons = new List<TouchButton>();
-    public TaskManager[] _levels;
+    public TaskManager[] levels;
 
+    [SerializeField] private bool isDisablingLevelsByProgress = false;
     [SerializeField] private GameObject levelSelectView;
     [SerializeField] private GameObject taskView;
 
+    //Assigns listeners for starting of and progressing between levels to level buttons
     private void Start()
     {
-        _levels = GetComponentsInChildren<TaskManager>(true);
+        levels = GetComponentsInChildren<TaskManager>(true);
 
         //connect buttons to levels
-        for (int i = 0; i < _levels.Length; i++)
+        for (int i = 0; i < levels.Length; i++)
         {
-            if (!_levels[i] || !_levelButtons[i]) 
+            if (!levels[i] || !_levelButtons[i]) 
             { 
                 Debug.LogError("[Level Manager] Level or Button not assigned.");
                 return;
@@ -28,25 +32,28 @@ public class LevelManager : MonoBehaviour
 
             int _i = i;
             _levelButtons[i].onTriggerEnter.AddListener(delegate { print(_i); StartLevel(_i); });
-            _levels[i].OnClear.AddListener(delegate { _progress = _i + 2; });
-            _levels[i].OnFinish.AddListener(delegate { ExitLevel(_levels[_i]); });            
+            levels[i].OnClear.AddListener(delegate { _progress = _i + 2; });
+            levels[i].OnFinish.AddListener(delegate { ExitLevel(levels[_i]); });            
         }
 
         //enable buttons based on progress
         UpdateButtonsByProgress();
     }
 
-
+    //Enables or disables level buttons based on player progress of the session
     private void UpdateButtonsByProgress()
     {
-        foreach (TouchButton button in _levelButtons)
+        if (isDisablingLevelsByProgress)
         {
-            button.SetActive(false);
-        }
-        for (int i = 0; i < _levelButtons.Count; i++)
-        {
-            if (i < _progress) EnableButton(_levelButtons[i]);
-            else DisableButton(_levelButtons[i]);
+            foreach (TouchButton button in _levelButtons)
+            {
+                button.SetActive(false);
+            }
+            for (int i = 0; i < _levelButtons.Count; i++)
+            {
+                if (i < _progress) EnableButton(_levelButtons[i]);
+                else DisableButton(_levelButtons[i]);
+            }
         }
     }
 
@@ -61,8 +68,9 @@ public class LevelManager : MonoBehaviour
     private void StartLevel(int i)
     {
         print(i);
-        StartLevel(_levels[i]);
+        StartLevel(levels[i]);
     }
+
     private void StartLevel(TaskManager level)
     {
         levelSelectView.SetActive(false);
@@ -84,6 +92,6 @@ public class LevelManager : MonoBehaviour
     }
     private void ExitCurrentLevel()
     {
-        ExitLevel(_levels[_progress]);
+        ExitLevel(levels[_progress]);
     }
 }

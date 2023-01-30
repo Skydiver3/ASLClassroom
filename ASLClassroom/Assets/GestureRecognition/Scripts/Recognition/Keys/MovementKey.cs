@@ -4,6 +4,10 @@ using UnityEngine;
 using UnityEditor;
 using static MovementRecognizer;
 
+/// <summary>
+/// The Key for directional movement. Are you moving up? Down?
+/// Subscribes to Movement Recognizer in scene and compares the recognized direction to the success condition.
+/// </summary>
 [CreateAssetMenu(fileName = "MovementKey", menuName = "Gesture Keys/Movement Key")]
 public class MovementKey : Key
 {
@@ -19,7 +23,7 @@ public class MovementKey : Key
 
     public override void ExitKey()
     {
-        //i hope you have a nice day
+        //i hope you are having a nice day
     }
 
     public override KeyStates GetKeyMet()
@@ -58,8 +62,10 @@ public class MovementKey : Key
         recognizer = MovementRecognizer.Instance;
     }
 
-
 #if UNITY_EDITOR
+    /// <summary>
+    /// Shows fields for target direction of left or right hand (or both), depending on Key specifications.
+    /// </summary>
     [CustomEditor(typeof(MovementKey))]
     public class MovementKeyEditor : Editor
     {

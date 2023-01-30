@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+/// <summary>
+/// Handles navigation between the tasks of a level. Starts the individual tasks and fires accompanying events like sound or particle effects.
+/// </summary>
 public class TaskManager : MonoBehaviour
 {
     private Task[] _tasks;
@@ -61,7 +64,7 @@ public class TaskManager : MonoBehaviour
 
     private IEnumerator InitTaskList()
     {
-        //wait until recognizers have been initialized
+        //wait until all recognizers have been initialized
         while (OrientationRecognizer.Instance==null)
         {
             yield return null;

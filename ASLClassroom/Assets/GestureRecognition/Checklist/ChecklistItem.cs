@@ -4,6 +4,9 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// An item of the checklist display that holds the instruction text, an image for displaying the key thumbnail, and the checkbox. Spawned by ChecklistManager.
+/// </summary>
 public class ChecklistItem : MonoBehaviour
 {
     public TextMeshProUGUI messageText;

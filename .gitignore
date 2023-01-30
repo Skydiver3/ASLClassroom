@@ -65,3 +65,6 @@ ASLClassroom/UserSettings
 ASLClassroom/obj
 ASLClassroom/BachelorProject.zip
 ASLClassroom/Project.zip
+
+# Exclude Iris' Project
+ASLClassroom/Assets/AvatarTest

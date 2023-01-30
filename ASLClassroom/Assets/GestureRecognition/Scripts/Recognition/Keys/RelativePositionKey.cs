@@ -4,6 +4,10 @@ using UnityEngine;
 using static OVRPlugin;
 using static RelationRecognizer;
 
+/// <summary>
+/// The Key for the position of the player's hands relative to other markers. Are they next to the head? The chest?
+/// Asks the relative position recognizer in the scene to calculate the distance between the specified objects to see if they're close enough.
+/// </summary>
 [CreateAssetMenu(fileName = "RelativePositionKey", menuName = "Gesture Keys/Relative Position Key")]
 public class RelativePositionKey : Key
 {
