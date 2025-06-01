@@ -1,0 +1,5 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:VisualElement name="Key" class="key">
+        <ui:Label text="Multiline filling text&#10;&#10;Example of multiline label. Does this wrap properly? I want it to wrap." display-tooltip-when-elided="true" enable-rich-text="true" style="margin-top: 0; margin-right: 3px; margin-left: 3px; white-space: normal; background-color: rgb(40, 123, 30);" />
+    </ui:VisualElement>
+</ui:UXML>

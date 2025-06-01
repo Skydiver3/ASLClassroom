@@ -1,0 +1,17 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:Template name="Key" src="project://database/Assets/GestureRecognition/UITKTemplates/Key.uxml?fileID=9197481963319205126&amp;guid=b1d692b9723fce84b866c88f5ff2dafd&amp;type=3#Key" />
+    <ui:Template name="Key2" src="project://database/Assets/GestureRecognition/UITKTemplates/Key2.uxml?fileID=9197481963319205126&amp;guid=d8e507f798c92994d8e34e1d250f144d&amp;type=3#Key2" />
+    <Style src="project://database/Assets/GestureRecognition/Assets/Stylesheet.uss?fileID=7433441132597879392&amp;guid=1625cacee4af2b147be3357c05a3abc7&amp;type=3#Stylesheet" />
+    <ui:VisualElement name="Board" style="height: 328px; background-color: rgb(63, 63, 63);">
+        <ui:VisualElement name="TitleCard" style="height: 17px; width: 187px; background-color: rgba(255, 255, 255, 0.06); align-items: center; margin-left: 18%; margin-top: 4px;">
+            <ui:Label text="Label" display-tooltip-when-elided="true" name="GestureTitle" style="-unity-text-align: middle-center;" />
+        </ui:VisualElement>
+        <ui:VisualElement name="KeyAnchor" style="background-color: rgba(255, 255, 255, 0.13); margin-left: 6px; height: 307px; margin-bottom: 6px; margin-top: 6px; margin-right: 6px; padding-left: 6px;">
+            <ui:Instance template="Key" name="Key" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:Instance template="Key2" name="Key2" style="flex-shrink: 0;" />
+    <ui:Instance template="Key2" name="Key2" style="flex-shrink: 0;" />
+    <ui:Instance template="Key2" name="Key2" style="flex-shrink: 0;" />
+    <ui:Instance template="Key2" name="Key2" style="flex-shrink: 0;" />
+</ui:UXML>
