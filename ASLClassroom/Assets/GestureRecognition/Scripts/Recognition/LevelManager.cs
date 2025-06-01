@@ -9,6 +9,7 @@ using UnityEngine.Events;
 public class LevelManager : MonoBehaviour
 {
     private int _progress = 1;
+    private int _currentLevel = 0;
     [SerializeField] private List<TouchButton> _levelButtons = new List<TouchButton>();
     public TaskManager[] levels;
 
@@ -68,6 +69,7 @@ public class LevelManager : MonoBehaviour
     private void StartLevel(int i)
     {
         print(i);
+        _currentLevel = i;
         StartLevel(levels[i]);
     }
 
@@ -88,10 +90,12 @@ public class LevelManager : MonoBehaviour
         if(levelSelectView)levelSelectView.SetActive(true);
         if(taskView)taskView.SetActive(false);
 
+        level.gameObject.SetActive(false);
+
         UpdateButtonsByProgress();
     }
     private void ExitCurrentLevel()
     {
-        ExitLevel(levels[_progress]);
+        ExitLevel(levels[_currentLevel]);
     }
 }
